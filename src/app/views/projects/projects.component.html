@@ -14,24 +14,35 @@
         <div class="col-sm-12">
           <hr/>
         </div>
-        <div class="row mr-0 ml-0 " style="width: 100%;" *ngFor="let p of projects">
-          <div class="col-sm-6">
-            <a class="h4 text-truncate" [routerLink]="['/']">{{p.name}}</a>
+        <div class="row mr-0 ml-0 mt-2" style="width: 100%;" *ngFor="let p of projects">
+          <div class="col-sm-8 text-truncate">
+            <a class="h4" [routerLink]="['/project/' + p.id + '/discover']">{{p.name}}</a>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <div class="float-right ">
-              <span class="badge badge-warning">Fecha límite próxima</span>
+              <span class="badge badge-warning">
+                <i class="fa fa-exclamation ml-1 mr-1"></i>
+                Fecha límite próxima
+              </span>
             </div>
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-8">
             <p>{{p.objective}}</p>
+          </div>
+          <div class="col-sm-4 small text-muted">
+            <div class="float-right">
+              <span>Fecha de inicio:{{p.startDate | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+          <div class="col-sm-12 small text-muted">
+            <span> Avance logrado</span>
           </div>
           <div class="col-sm-12">
             <progressbar class="progress" [value]="p.completion" [max]="100"
                          [type]="p.completion < 20 ? 'danger' : p.completion < 50 ? 'warning' : 'success'">
               <b>{{p.completion}}%</b></progressbar>
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-12 mt-2">
             <hr/>
           </div>
         </div>

@@ -13,16 +13,12 @@ import {navPhases} from '../../constants/_navPhases';
 export class DefaultLayoutComponent {
   public sidebarMinimized = false;
   // public navItems = navItems;
-  public navItems = navPhases;
   public navItemsShort = navItemsShort;
-  public router: Router;
   public userName: string = 'Luis Daniel Hernández Carrera';
-  public constants = constants;
   public notifications: NotificationModel[] = [];
   public messages: NotificationModel[] = [];
 
-  public constructor(router: Router) {
-    this.router = router;
+  public constructor(public router: Router) {
     this.initMessages();
     this.initNotifications();
   }

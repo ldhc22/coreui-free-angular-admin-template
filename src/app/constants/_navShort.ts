@@ -3,7 +3,7 @@ import {INavData} from '@coreui/angular';
 export const navItemsShort: INavData[] = [
   {
     name: 'Proyectos',
-    url: '/proyectos',
+    url: '/projects',
     icon: 'icon-layers'
   },
   {

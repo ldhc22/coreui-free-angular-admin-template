@@ -20,6 +20,7 @@ export class ProjectsComponent implements OnInit {
 
   initProjects() {
     const proj = new ProjectModel();
+    proj.id = '12345678';
     proj.name = 'Sistema de enfriamiento sólido';
     proj.description = 'Desarrollo de sistema de enfriamiento que utiliza una pieza sólida en lugar de fluidos';
     proj.client = 'Big Company S.A de C.V.';
@@ -30,6 +31,7 @@ export class ProjectsComponent implements OnInit {
     proj.restrictions.quality = '';
     proj.completion = 60;
     proj.stakeholders = [];
+    proj.startDate = new Date();
     this.initStakeholders(proj.stakeholders);
     proj.challenges = 'Viabilidad técnica del producto';
     proj.teamMembers = [];
@@ -76,13 +78,15 @@ export class ProjectsComponent implements OnInit {
   }
   addProject() {
     this.projectToAdd.completion = 0;
+    this.projectToAdd.startDate = new Date();
+    this.projectToAdd.id = Math.random() + '';
     this.projects.push(Object.assign({}, this.projectToAdd));
-    this.resetProject(this.projectToAdd);
+    this.resetProject();
     this.newProjectModal.hide();
   }
-  resetProject(project: ProjectModel) {
-    project = new ProjectModel();
-    project.teamMembers = [new TeamMemberModel()];
-    project.stakeholders = [new TeamMemberModel()];
+  resetProject() {
+    this.projectToAdd = new ProjectModel();
+    this.projectToAdd.teamMembers = [new TeamMemberModel()];
+    this.projectToAdd.stakeholders = [new TeamMemberModel()];
   }
 }

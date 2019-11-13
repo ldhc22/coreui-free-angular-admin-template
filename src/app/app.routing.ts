@@ -8,11 +8,17 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import {ProjectLayoutComponent} from './containers/project-layout/project-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'proyectos',
+    redirectTo: 'projects',
+    pathMatch: 'full',
+  },
+  {
+    path: 'project/:id',
+    redirectTo: 'projects',
     pathMatch: 'full',
   },
   {
@@ -42,6 +48,19 @@ export const routes: Routes = [
     data: {
       title: 'Register Page'
     }
+  },
+  {
+    path: 'project/:id',
+    component: ProjectLayoutComponent,
+    data: {
+      title: 'Project'
+    },
+    children: [
+      {
+        path: 'discover',
+        loadChildren: () => import('./views/discover/discover.module').then(m => m.DiscoverModule)
+      }
+    ]
   },
   {
     path: '',
@@ -83,7 +102,7 @@ export const routes: Routes = [
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
       {
-        path: 'proyectos',
+        path: 'projects',
         loadChildren: () => import('./views/projects/projects.module').then(m => m.ProjectsModule)
       }
     ]
