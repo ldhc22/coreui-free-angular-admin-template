@@ -1,0 +1,124 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-5">
+          <h4 class="card-title mb-0">Proyectos</h4>
+        </div>
+        <div class="col-sm-7">
+          <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                  (click)="newProjectModal.show()">
+            <i class="icon-plus mr-1"></i>Nuevo proyecto
+          </button>
+        </div>
+        <div class="col-sm-12">
+          <hr/>
+        </div>
+        <div class="row mr-0 ml-0 " style="width: 100%;" *ngFor="let p of projects">
+          <div class="col-sm-6">
+            <a class="h4 text-truncate" [routerLink]="['/']">{{p.name}}</a>
+          </div>
+          <div class="col-sm-6">
+            <div class="float-right ">
+              <span class="badge badge-warning">Fecha límite próxima</span>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <p>{{p.objective}}</p>
+          </div>
+          <div class="col-sm-12">
+            <progressbar class="progress" [value]="p.completion" [max]="100"
+                         [type]="p.completion < 20 ? 'danger' : p.completion < 50 ? 'warning' : 'success'">
+              <b>{{p.completion}}%</b></progressbar>
+          </div>
+          <div class="col-sm-12">
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #newProjectModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Crear nuevo proyecto</h4>
+        <button type="button" class="close" (click)="newProjectModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Nombre de proyecto</label>
+            <div class="col-md-9">
+              <input class="form-control" [(ngModel)]="projectToAdd.name"  type="text" name="name" id="name"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Cliente</label>
+            <div class="col-md-9">
+              <input class="form-control" [(ngModel)]="projectToAdd.client" type="text" name="client" id="client"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Objetivo</label>
+            <div class="col-md-9">
+              <input class="form-control" [(ngModel)]="projectToAdd.objective" type="text" name="objective" id="objective"/>
+            </div>
+          </div>
+          <div *ngFor="let stk of projectToAdd.stakeholders; let index=index" class="form-group row">
+            <label *ngIf="index == 0" class="col-md-3 col-form-label">Stakeholders</label>
+            <label *ngIf="index > 0" class="col-md-3 col-form-label"></label>
+            <div class="col-md-4 mr-md-0 ml-md-0 pr-md-0">
+              <input class="form-control" type="text" [name]="'stakeholder'+index" [id]="'stakeholder'+index" [(ngModel)]="projectToAdd.stakeholders[index].name" placeholder="Nombre"/>
+            </div>
+            <div class="input-group col-md-5 ml-md-0 pl-md-0">
+              <input class="form-control" type="text" [name]="'stakeholderEmail'+index" [id]="'stakeholderEmail'+index" [(ngModel)]="projectToAdd.stakeholders[index].email" placeholder="Email"/>
+              <span class="input-group-append ">
+              <button *ngIf="index == 0" type="button" (click)="addStakeholder()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button *ngIf="index > 0" type="button" (click)="removeStakeholder(index)" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+            </span>
+            </div>
+          </div>
+          <div *ngFor="let tmm of projectToAdd.teamMembers; let index=index" class="form-group row">
+            <label *ngIf="index == 0" class="col-md-3 col-form-label">Equipo de trabajo</label>
+            <label *ngIf="index > 0" class="col-md-3 col-form-label"></label>
+            <div class="col-md-3 mr-md-0 ml-md-0 pr-md-0">
+              <input class="form-control" type="text" [name]="'teamName'+index" [id]="'teamName'+index" [(ngModel)]="projectToAdd.teamMembers[index].name" placeholder="Nombre"/>
+            </div>
+            <div class="col-md-3 mr-md-0 ml-md-0 pl-md-0 pr-md-0">
+              <input class="form-control" type="text" [name]="'teamEmail'+index" [id]="'teamEmail'+index" [(ngModel)]="projectToAdd.teamMembers[index].email" placeholder="Email"/>
+            </div>
+            <div class="input-group col-md-3 ml-md-0 pl-md-0">
+              <input class="form-control" type="text" [name]="'teamRole'+index" [id]="'teamRole'+index" [(ngModel)]="projectToAdd.teamMembers[index].role" placeholder="Rol"/>
+              <span class="input-group-append ">
+              <button *ngIf="index == 0" type="button" (click)="addTeamMember()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button *ngIf="index > 0" type="button" (click)="removeTeamMember(index)" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+            </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Retos</label>
+            <div class="col-md-9">
+              <textarea class="form-control" rows="9" name="challenge" id="challenge" [(ngModel)]="projectToAdd.challenges"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Expectativas</label>
+            <div class="col-md-9">
+              <textarea class="form-control" rows="9" name="expectations" id="expectations" [(ngModel)]="projectToAdd.expectations"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="newProjectModal.hide()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="addProject()">Guardar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

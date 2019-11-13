@@ -1,1 +1,11 @@
 // Here you can add other styles
+.message{
+  width: 100%;
+  white-space: nowrap;
+  p{
+    width: 80%;
+    font-size: 10px;
+    text-overflow: ellipsis;
+
+  }
+}
