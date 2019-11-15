@@ -3,6 +3,8 @@ import {ProjectModel} from '../../model/project.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
 import {RestrictionsModel} from '../../model/restrictions.model';
 import {ModalDirective} from 'ngx-bootstrap';
+import {Router} from '@angular/router';
+import {routes} from '../../app.routing';
 
 @Component({
   templateUrl: 'projects.component.html'
@@ -11,6 +13,10 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('newProjectModal') public newProjectModal: ModalDirective;
   public projects: ProjectModel[] = [];
   public projectToAdd: ProjectModel = new ProjectModel();
+
+  constructor(public router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.initProjects();
@@ -64,18 +70,23 @@ export class ProjectsComponent implements OnInit {
     teamMembers.push(team);
     teamMembers.push(team2);
   }
+
   addStakeholder() {
     this.projectToAdd.stakeholders.push(new TeamMemberModel());
   }
+
   removeStakeholder(index) {
     this.projectToAdd.stakeholders.splice(index, 1);
   }
+
   addTeamMember() {
     this.projectToAdd.teamMembers.push(new TeamMemberModel());
   }
+
   removeTeamMember(index) {
     this.projectToAdd.teamMembers.splice(index, 1);
   }
+
   addProject() {
     this.projectToAdd.completion = 0;
     this.projectToAdd.startDate = new Date();
@@ -84,9 +95,15 @@ export class ProjectsComponent implements OnInit {
     this.resetProject();
     this.newProjectModal.hide();
   }
+
   resetProject() {
     this.projectToAdd = new ProjectModel();
     this.projectToAdd.teamMembers = [new TeamMemberModel()];
     this.projectToAdd.stakeholders = [new TeamMemberModel()];
+  }
+
+  goToProject(projectId) {
+    sessionStorage.setItem('projectId', projectId);
+    this.router.navigate(['/project/discover/']);
   }
 }

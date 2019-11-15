@@ -20,8 +20,8 @@ export const navPhases: INavData[] = [
     },
     children: [
       {
-        name: 'Entrevistas',
-        url: '/base/cards',
+        name: 'Investigación técnica',
+        url: '/project/discover/investigation',
         icon: 'icon-puzzle',
         badge: {
           variant: 'success',
@@ -29,8 +29,18 @@ export const navPhases: INavData[] = [
         }
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
+        name: 'Five whys',
+        url: '/project/discover/five-whys',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Question ladder',
+        url: '/project/discover/question-ladder',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Voice of the customer',
+        url: '/project/discover/voice-customer',
         icon: 'icon-puzzle'
       }
     ]
@@ -41,13 +51,13 @@ export const navPhases: INavData[] = [
     icon: 'icon-magnifier',
     children: [
       {
-        name: 'Cards',
-        url: '/base/cards',
+        name: 'Affinity diagram',
+        url: '/connect/affinity-diagram',
         icon: 'icon-puzzle'
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
+        name: 'Insights',
+        url: '/connect/insights',
         icon: 'icon-puzzle'
       }
     ]
@@ -58,8 +68,8 @@ export const navPhases: INavData[] = [
     icon: 'icon-bulb',
     children: [
       {
-        name: 'Cards',
-        url: '/base/cards',
+        name: 'Improvement triggers',
+        url: '/create/improvement-triggers',
         icon: 'icon-puzzle'
       },
       {

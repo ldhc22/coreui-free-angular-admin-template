@@ -4,6 +4,10 @@ import {BsDropdownModule, ButtonsModule, ModalModule, ProgressbarModule} from 'n
 import {CommonModule} from '@angular/common';
 import {DiscoverComponent} from './discover.component';
 import {DiscoverRoutingModule} from './discover-routing.module';
+import {FiveWhysComponent} from './five-whys.component';
+import {QuestionLadderComponent} from './question-ladder.component';
+import {VoiceCustomerComponent} from './voice-customer.component';
+import {InvestigationComponent} from './investigation.component';
 
 @NgModule({
   imports: [
@@ -16,7 +20,11 @@ import {DiscoverRoutingModule} from './discover-routing.module';
     ModalModule.forRoot(),
   ],
   declarations: [
-    DiscoverComponent
+    DiscoverComponent,
+    FiveWhysComponent,
+    QuestionLadderComponent,
+    VoiceCustomerComponent,
+    InvestigationComponent
   ]
 })
 export class DiscoverModule {

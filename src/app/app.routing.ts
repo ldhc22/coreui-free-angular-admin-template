@@ -17,11 +17,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'project/:id',
-    redirectTo: 'projects',
-    pathMatch: 'full',
-  },
-  {
     path: '404',
     component: P404Component,
     data: {
@@ -50,7 +45,7 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'project/:id',
+    path: 'project',
     component: ProjectLayoutComponent,
     data: {
       title: 'Project'
@@ -59,6 +54,10 @@ export const routes: Routes = [
       {
         path: 'discover',
         loadChildren: () => import('./views/discover/discover.module').then(m => m.DiscoverModule)
+      },
+      {
+        path: 'info',
+        loadChildren: () => import('./views/project/info.module').then(m => m.InfoModule)
       }
     ]
   },

@@ -27,13 +27,14 @@ export class ProjectLayoutComponent implements OnInit{
   }
   ngOnInit(): void {
     // this.id =  this.route.snapshot.paramMap.get('id');
-    this.route.paramMap.pipe(
+    this.id = sessionStorage.getItem('projectId');
+    /*this.route.paramMap.pipe(
       map(params => {
         return params.get('id');
       })
     ).subscribe(id => {
       this.id = id;
-    });
+    });*/
   }
 
   toggleMinimize(e) {
