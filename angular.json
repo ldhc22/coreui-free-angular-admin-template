@@ -32,8 +32,7 @@
               ]
             },
             "scripts": [
-              "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/@sketchfab/viewer-api/viewer-api.js"
+              "node_modules/chart.js/dist/Chart.min.js"
             ]
           },
           "configurations": {

@@ -2,8 +2,77 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
           <h4 class="card-title mb-0">Five whys</h4>
+          <p>Es un sistema que nos ayuda a determinar la causa raiz de un problema. Nos permite atacar un problema desde su origen y evitar enfocarnos en síntomas del problema.</p>
+        </div>
+        <div class="col-sm-12 mt-2 mb-2">
+          <h4>Plantilla</h4>
+        </div>
+        <div class="col-12">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-3">Clearly state the problem</label>
+              <div class="col-sm-9">
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3">Why did this occur?</label>
+              <div class="col-sm-5">
+                <textarea class="form-control"></textarea>
+              </div>
+              <label class="col-sm-2">Is this a root cause?</label>
+              <div class="col-sm-2">
+                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="yes1" value="true" ><label for="yes1">Yes</label>
+                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="no1" value="false"><label for="no1">No</label>
+              </div>
+            </div>
+            <div *ngIf="!root1" class="form-group row">
+              <label class="col-sm-3">Why did this occur?</label>
+              <div class="col-sm-5">
+                <textarea class="form-control"></textarea>
+              </div>
+              <label class="col-sm-2">Is this a root cause?</label>
+              <div class="col-sm-2">
+                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="yes2" value="true" ><label for="yes2">Yes</label>
+                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="no2" value="false"><label for="no2">No</label>
+              </div>
+            </div>
+            <div *ngIf="!root2" class="form-group row">
+              <label class="col-sm-3">Why did this occur?</label>
+              <div class="col-sm-5">
+                <textarea class="form-control"></textarea>
+              </div>
+              <label class="col-sm-2">Is this a root cause?</label>
+              <div class="col-sm-2">
+                <input type="radio" [(ngModel)]="root3" name="rootCause1" id="yes3" value="true" ><label for="yes3">Yes</label>
+                <input type="radio" [(ngModel)]="root3" name="rootCause1" id="no3" value="false"><label for="no3">No</label>
+              </div>
+            </div>
+            <div *ngIf="!root3" class="form-group row">
+              <label class="col-sm-3">Why did this occur?</label>
+              <div class="col-sm-5">
+                <textarea class="form-control"></textarea>
+              </div>
+              <label class="col-sm-2">Is this a root cause?</label>
+              <div class="col-sm-2">
+                <input type="radio" [(ngModel)]="root4" name="rootCause1" id="yes4" value="true" ><label for="yes4">Yes</label>
+                <input type="radio" [(ngModel)]="root4" name="rootCause1" id="no4" value="false"><label for="no4">No</label>
+              </div>
+            </div>
+            <div *ngIf="!root4" class="form-group row">
+              <label class="col-sm-3">Why did this occur?</label>
+              <div class="col-sm-5">
+                <textarea class="form-control"></textarea>
+              </div>
+              <label class="col-sm-2">Is this a root cause?</label>
+              <div class="col-sm-2">
+                <input type="radio" [(ngModel)]="root5" name="rootCause1" id="yes5" value="true" ><label for="yes5">Yes</label>
+                <input type="radio" [(ngModel)]="root5" name="rootCause1" id="no5" value="false"><label for="no5">No</label>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

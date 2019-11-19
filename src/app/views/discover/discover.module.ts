@@ -8,9 +8,11 @@ import {FiveWhysComponent} from './five-whys.component';
 import {QuestionLadderComponent} from './question-ladder.component';
 import {VoiceCustomerComponent} from './voice-customer.component';
 import {InvestigationComponent} from './investigation.component';
+import {NgxDocViewerModule} from 'ngx-doc-viewer';
 
 @NgModule({
   imports: [
+    NgxDocViewerModule,
     FormsModule,
     DiscoverRoutingModule,
     BsDropdownModule,

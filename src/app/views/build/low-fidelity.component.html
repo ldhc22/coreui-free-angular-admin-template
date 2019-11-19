@@ -5,7 +5,41 @@
         <div class="col-sm-5">
           <h4 class="card-title mb-0">Low Fidelity Prototyping</h4>
         </div>
+        <div class="col-sm-7">
+
+        </div>
+        <div class="col-sm-12 text-center">
+          <!-- Insert iframe -->
+          <iframe style="width: 100%; height: 500px;" src="https://sketchfab.com/models/f2efb32f42df4899ab9393e974f91a3e/embed?autostart=1&amp"></iframe>
+          <!-- Initialize the viewer -->
+          <script type="text/javascript">
+              var iframe = document.getElementById( 'api-frame' );
+              var version = '1.0.0';
+              var urlid = '7w7pAfrCfjovwykkEeRFLGw5SXS';
+              var client = new Sketchfab( version, iframe );
+              client.init( urlid, {
+                  success: function onSuccess( api ){
+                      api.start();
+                      api.addEventListener( 'viewerready', function() {
+                          // API is ready to use
+                          // Insert your code here
+                          console.log( 'Viewer is ready' );
+                      } );
+                  },
+                  error: function onError() {
+                      console.log( 'Viewer error' );
+                  }
+              } );
+          </script>
+        </div>
+        <div class="col-sm-12 text-center" style="max-height: 500px; max-width: 100%">
+          <iframe style="width: 100%; height: 500px;" src="https://demos.creative-tim.com/paper-kit-2-pro-angular/#/presentation"></iframe>
+        </div>
+        <div class="col-sm-12 text-center">
+          <img style="width: 100%;" src="https://projects.invisionapp.com/static-signed/live-embed/309631391/394111499/1/latest/XJlfpQXgy9eG7z9CmlDsrDJyDspWwlENbMlEeMgDsoloPLgXHt0iN8mlEylE5MqKq4lEzlEHYuCZi9CgSglEj2q5g7eTAlE/Explore-2x.png">
+        </div>
       </div>
     </div>
   </div>
 </div>
+
