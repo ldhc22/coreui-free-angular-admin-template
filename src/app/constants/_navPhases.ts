@@ -3,7 +3,7 @@ import {INavData} from '@coreui/angular';
 export const navPhases: INavData[] = [
   {
     name: 'Información general',
-    url: '/info',
+    url: '/project/info',
     icon: 'icon-info'
   },
   {
@@ -12,13 +12,18 @@ export const navPhases: INavData[] = [
   },
   {
     name: 'Discover',
-    url: '/discover',
+    url: '/project/discover',
     icon: 'icon-people',
     badge: {
       variant: 'warning',
       text: 'En curso'
     },
     children: [
+      {
+        name: 'Información',
+        url: '/project/discover',
+        icon: 'icon-info'
+      },
       {
         name: 'Investigación técnica',
         url: '/project/discover/investigation',
@@ -47,68 +52,88 @@ export const navPhases: INavData[] = [
   },
   {
     name: 'Connect',
-    url: '/connect',
+    url: '/project/connect',
     icon: 'icon-magnifier',
     children: [
       {
+        name: 'Información',
+        url: '/project/connect',
+        icon: 'icon-info'
+      },
+      {
         name: 'Affinity diagram',
-        url: '/connect/affinity-diagram',
+        url: '/project/connect/affinity-diagram',
         icon: 'icon-puzzle'
       },
       {
         name: 'Insights',
-        url: '/connect/insights',
+        url: '/project/connect/insights',
         icon: 'icon-puzzle'
       }
     ]
   },
   {
     name: 'Create',
-    url: '/create',
+    url: '/project/create',
     icon: 'icon-bulb',
     children: [
       {
+        name: 'Información',
+        url: '/project/create',
+        icon: 'icon-info'
+      },
+      {
         name: 'Improvement triggers',
-        url: '/create/improvement-triggers',
+        url: '/project/create/improvement-triggers',
         icon: 'icon-puzzle'
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
+        name: 'Matriz MVP',
+        url: '/project/create/matriz-mvp',
         icon: 'icon-puzzle'
       }
     ]
   },
   {
     name: 'Build',
-    url: '/build',
+    url: '/project/build',
     icon: 'icon-pencil',
     children: [
       {
-        name: 'Cards',
-        url: '/base/cards',
+        name: 'Información',
+        url: '/project/build',
+        icon: 'icon-info'
+      },
+      {
+        name: 'Low Fidelity Prototyping',
+        url: '/project/build/low-fidelity',
         icon: 'icon-puzzle'
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
+        name: 'Mid Fidelity Prototyping',
+        url: '/project/build/mid-fidelity',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'High Fidelity Prototyping',
+        url: '/project/build/high-fidelity',
         icon: 'icon-puzzle'
       }
     ]
   },
   {
     name: 'Launch',
-    url: '/launch',
+    url: '/project/launch',
     icon: 'icon-rocket',
     children: [
       {
-        name: 'Cards',
-        url: '/base/cards',
-        icon: 'icon-puzzle'
+        name: 'Información',
+        url: '/project/launch',
+        icon: 'icon-info'
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
+        name: 'Marketing Mix',
+        url: '/project/launch/marketing-mix',
         icon: 'icon-puzzle'
       }
     ]

@@ -17,7 +17,7 @@ const routes: Routes = [
         path: '',
         component: DiscoverComponent,
         data: {
-          title: 'Info'
+          title: 'Información'
         }
       },
       {
@@ -50,7 +50,7 @@ const routes: Routes = [
       }
     ]
   },
-]
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

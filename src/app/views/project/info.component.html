@@ -3,7 +3,90 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-5">
-          <h4 class="card-title mb-0">Info</h4>
+          <h4 class="card-title mb-0">Información general del proyecto</h4>
+        </div>
+        <div class="col-sm-7">
+        </div>
+        <div class="col-sm-12 text-muted">
+          <p>Aquí podrás modificar la información del proyecto</p>
+        </div>
+        <div class="col-sm-12">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Nombre de proyecto</label>
+              <div class="col-md-9">
+                <input class="form-control" [disabled]="!enableEdit" [(ngModel)]="project.name"  type="text" name="name" id="name"/>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Cliente</label>
+              <div class="col-md-9">
+                <input class="form-control" [disabled]="!enableEdit" [(ngModel)]="project.client" type="text" name="client" id="client"/>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Objetivo</label>
+              <div class="col-md-9">
+                <input class="form-control" [disabled]="!enableEdit" [(ngModel)]="project.objective" type="text" name="objective" id="objective"/>
+              </div>
+            </div>
+            <div *ngFor="let stk of project.stakeholders; let index=index" class="form-group row">
+              <label *ngIf="index == 0" class="col-md-3 col-form-label">Stakeholders</label>
+              <label *ngIf="index > 0" class="col-md-3 col-form-label"></label>
+              <div class="col-md-4 mr-md-0 ml-md-0 pr-md-0">
+                <input class="form-control" type="text" [name]="'stakeholder'+index" [id]="'stakeholder'+index" [disabled]="!enableEdit" [(ngModel)]="project.stakeholders[index].name" placeholder="Nombre"/>
+              </div>
+              <div class="input-group col-md-5 ml-md-0 pl-md-0">
+                <input class="form-control" type="text" [name]="'stakeholderEmail'+index" [id]="'stakeholderEmail'+index" [disabled]="!enableEdit" [(ngModel)]="project.stakeholders[index].email" placeholder="Email"/>
+                <span class="input-group-append ">
+              <button *ngIf="index == 0" type="button" [disabled]="!enableEdit" (click)="addStakeholder()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button *ngIf="index > 0" type="button" [disabled]="!enableEdit" (click)="removeStakeholder(index)" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+            </span>
+              </div>
+            </div>
+            <div *ngFor="let tmm of project.teamMembers; let index=index" class="form-group row">
+              <label *ngIf="index == 0" class="col-md-3 col-form-label">Equipo de trabajo</label>
+              <label *ngIf="index > 0" class="col-md-3 col-form-label"></label>
+              <div class="col-md-3 mr-md-0 ml-md-0 pr-md-0">
+                <input class="form-control" type="text" [name]="'teamName'+index" [id]="'teamName'+index" [disabled]="!enableEdit" [(ngModel)]="project.teamMembers[index].name" placeholder="Nombre"/>
+              </div>
+              <div class="col-md-3 mr-md-0 ml-md-0 pl-md-0 pr-md-0">
+                <input class="form-control" type="text" [name]="'teamEmail'+index" [id]="'teamEmail'+index" [disabled]="!enableEdit" [(ngModel)]="project.teamMembers[index].email" placeholder="Email"/>
+              </div>
+              <div class="input-group col-md-3 ml-md-0 pl-md-0">
+                <input class="form-control" type="text" [name]="'teamRole'+index" [id]="'teamRole'+index" [disabled]="!enableEdit" [(ngModel)]="project.teamMembers[index].role" placeholder="Rol"/>
+                <span class="input-group-append ">
+              <button *ngIf="index == 0" type="button" [disabled]="!enableEdit" (click)="addTeamMember()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button *ngIf="index > 0" type="button" [disabled]="!enableEdit" (click)="removeTeamMember(index)" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+            </span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Retos</label>
+              <div class="col-md-9">
+                <textarea class="form-control" rows="9" name="challenge" id="challenge" [disabled]="!enableEdit" [(ngModel)]="project.challenges"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Expectativas</label>
+              <div class="col-md-9">
+                <textarea class="form-control" rows="9" name="expectations" id="expectations" [disabled]="!enableEdit" [(ngModel)]="project.expectations"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button *ngIf="!enableEdit" type="button" class="btn btn-primary" (click)="toggleEdit()">
+                  Editar
+                </button>
+                <button *ngIf="enableEdit" type="button" class="btn btn-primary" (click)="toggleEdit()">
+                  Cancelar
+                </button>
+                <button *ngIf="enableEdit" type="button" class="btn btn-primary" (click)="toggleEdit()">
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

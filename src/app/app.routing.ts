@@ -56,6 +56,22 @@ export const routes: Routes = [
         loadChildren: () => import('./views/discover/discover.module').then(m => m.DiscoverModule)
       },
       {
+        path: 'connect',
+        loadChildren: () => import('./views/connect/connect.module').then(m => m.ConnectModule)
+      },
+      {
+        path: 'create',
+        loadChildren: () => import('./views/create/create.module').then(m => m.CreateModule)
+      },
+      {
+        path: 'build',
+        loadChildren: () => import('./views/build/build.module').then(m => m.BuildModule)
+      },
+      {
+        path: 'launch',
+        loadChildren: () => import('./views/launch/launch.module').then(m => m.LaunchModule)
+      },
+      {
         path: 'info',
         loadChildren: () => import('./views/project/info.module').then(m => m.InfoModule)
       }

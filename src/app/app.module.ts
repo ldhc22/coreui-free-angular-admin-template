@@ -56,7 +56,7 @@ import {ProjectLayoutComponent} from './containers/project-layout/project-layout
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
   ],
   declarations: [
     AppComponent,
