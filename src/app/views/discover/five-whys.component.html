@@ -24,8 +24,8 @@
               </div>
               <label class="col-sm-2">Is this a root cause?</label>
               <div class="col-sm-2">
-                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="yes1" value="true" ><label for="yes1">Yes</label>
-                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="no1" value="false"><label for="no1">No</label>
+                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="yes1" [value]="true" ><label for="yes1">Yes</label>
+                <input type="radio" [(ngModel)]="root1" name="rootCause1" id="no1" [value]="false"><label for="no1">No</label>
               </div>
             </div>
             <div *ngIf="!root1" class="form-group row">
@@ -35,8 +35,8 @@
               </div>
               <label class="col-sm-2">Is this a root cause?</label>
               <div class="col-sm-2">
-                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="yes2" value="true" ><label for="yes2">Yes</label>
-                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="no2" value="false"><label for="no2">No</label>
+                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="yes2" [value]="true" ><label for="yes2">Yes</label>
+                <input type="radio" [(ngModel)]="root2" name="rootCause1" id="no2" [value]="false"><label for="no2">No</label>
               </div>
             </div>
             <div *ngIf="!root2" class="form-group row">

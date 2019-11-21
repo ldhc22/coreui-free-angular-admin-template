@@ -5,12 +5,28 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ProjectModel} from '../../model/project.model';
 import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './project-layout.component.html'
+  templateUrl: './project-layout.component.html',
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':leave',
+          [
+            style({ opacity: 1, overflow: '*' }),
+            animate('1s ease-in',
+              style({ width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap'}))
+          ]
+        )
+      ]
+    )
+  ]
 })
-export class ProjectLayoutComponent implements OnInit{
+export class ProjectLayoutComponent implements OnInit {
   public sidebarMinimized = false;
   public navItems = navPhases;
   public userName: string = 'Luis Daniel Hernández Carrera';
@@ -18,6 +34,8 @@ export class ProjectLayoutComponent implements OnInit{
   public messages: NotificationModel[] = [];
   public project: ProjectModel;
   public id: string;
+  public dismissMsg: boolean = false;
+  public extendChatBot: boolean = false;
 
   public constructor(public router: Router,
                      private route: ActivatedRoute) {
@@ -25,21 +43,19 @@ export class ProjectLayoutComponent implements OnInit{
     this.initNotifications();
     this.getProject();
   }
+
   ngOnInit(): void {
     // this.id =  this.route.snapshot.paramMap.get('id');
     this.id = sessionStorage.getItem('projectId');
-    /*this.route.paramMap.pipe(
-      map(params => {
-        return params.get('id');
-      })
-    ).subscribe(id => {
-      this.id = id;
-    });*/
+    setTimeout(() => {
+      this.dismissMsg = true;
+    }, 10000 );
   }
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
   }
+
   initNotifications() {
     const not1 = new NotificationModel();
     not1.type = 'INFO';
@@ -47,6 +63,7 @@ export class ProjectLayoutComponent implements OnInit{
     not1.body = 'Hay un nuevo comentario en fase 1';
     this.notifications.push(not1);
   }
+
   initMessages() {
     const message = new NotificationModel();
     message.type = 'MESSAGE';
@@ -54,6 +71,7 @@ export class ProjectLayoutComponent implements OnInit{
     message.body = 'Hay una actualización en fase 1';
     this.messages.push(message);
   }
+
   getProject() {
     this.project = new ProjectModel();
     this.project.name = 'i4.0 Fast Response';

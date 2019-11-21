@@ -130,6 +130,33 @@
   </main>
 
 </div>
+<div class="chat-min" *ngIf="!extendChatBot; else chatMax" (click)="extendChatBot = true; dismissMsg=true;">
+  <div class="float-left bg-gray-100 popout" style="border-radius: 50px;">
+    <img class="chat-logo" src="assets/img/avatars/robot.png" alt="Virtual assistant">
+  </div>
+  <div class="float-left chat-rect popout" [@inOutAnimation] *ngIf="!dismissMsg">
+    <div class="chat-text bg-gray-100">¿En qué te puedo ayudar?</div>
+  </div>
+</div>
+<ng-template #chatMax>
+  <div class="chat-max">
+    <div>
+      <div class="float-right" (click)="extendChatBot = false;">
+        <span>x</span>
+      </div>
+      <div class="text-center">
+        <img class="chat-logo" src="assets/img/avatars/robot.png" alt="Virtual assistant">
+      </div>
+    </div>
+    <div>
+      Messages
+    </div>
+    <div>
+      <textarea placeholder="Write something..."></textarea>
+      <button type="button" class="btn btn-info"><i class="fa fa-arrow-right"></i></button>
+    </div>
+  </div>
+</ng-template>
 <app-footer>
   <span><a href="#">i4.0 Fast Response</a> &copy; 2019 Equipo A.</span>
   <span class="ml-auto">Powered by <a href="https://coreui.io/angular">CoreUI for Angular</a></span>
