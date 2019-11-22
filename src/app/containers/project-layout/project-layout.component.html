@@ -19,8 +19,9 @@
   </ul>
   <ul class="nav navbar-nav ml-auto">
     <!-- Notifications -->
-    <li  class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+         dropdownToggle (click)="false">
         <i class="icon-bell"></i>
         <span *ngIf="notifications.length > 0" class="badge badge-pill badge-danger">{{notifications.length}}</span>
       </a>
@@ -41,7 +42,8 @@
 
     <!-- Messages -->
     <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+         dropdownToggle (click)="false">
         <i class="fa fa-envelope-open-o"></i>
         <span *ngIf="messages.length > 0" class="badge badge-pill badge-info">{{messages.length}}</span>
       </a>
@@ -74,7 +76,8 @@
 
     <!-- User profile -->
     <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+         dropdownToggle (click)="false">
         <span class="d-md-down-none">{{userName}}</span>
         <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>
       </a>
@@ -89,7 +92,8 @@
   </ul>
 </app-header>
 <div class="app-body">
-  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
+               (minimizedChange)="toggleMinimize($event)">
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
@@ -140,20 +144,29 @@
 </div>
 <ng-template #chatMax>
   <div class="chat-max">
-    <div>
-      <div class="float-right" (click)="extendChatBot = false;">
-        <span>x</span>
+    <div class="bg-gray-100" style="border-radius: 5px;">
+      <div class="close align-self-middle mr-2" style="margin-top: 0.75rem;" (click)="extendChatBot = false;">
+        <i class="fa fa-times"></i>
       </div>
-      <div class="text-center">
+      <div class="m-auto" style="width: fit-content;">
         <img class="chat-logo" src="assets/img/avatars/robot.png" alt="Virtual assistant">
       </div>
+
     </div>
-    <div>
-      Messages
+    <div class="bg-gray-200 chat-messages pt-2 pl-2 pr-2">
+      <div class="w-100 d-flex" *ngFor="let m of chatMessages" [ngClass]="m.user === 'CHATBOT' ? 'justify-content-start' : 'justify-content-end'">
+        <div  class="py-2 pl-2 pr-4 mb-2"
+              style="max-width: 65%; overflow-wrap: break-word"
+              [ngClass]="m.user === 'CHATBOT' ? 'bg-white' : 'bg-info'"
+              [innerHTML]="m.message">
+        </div>
+      </div>
     </div>
-    <div>
-      <textarea placeholder="Write something..."></textarea>
-      <button type="button" class="btn btn-info"><i class="fa fa-arrow-right"></i></button>
+    <div class="form-group">
+      <div class="input-group">
+        <textarea class="form-control" [(ngModel)]="messageToSend" placeholder="Write something..."></textarea>
+        <button type="button" class="btn btn-info input-group-append" (click)="sendChatMessage()"><i class="fa fa-arrow-right m-auto"></i></button>
+      </div>
     </div>
   </div>
 </ng-template>

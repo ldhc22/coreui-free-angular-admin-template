@@ -17,9 +17,9 @@ import {animate, style, transition, trigger} from '@angular/animations';
         transition(
           ':leave',
           [
-            style({ opacity: 1, overflow: '*' }),
+            style({opacity: 1, overflow: '*'}),
             animate('1s ease-in',
-              style({ width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap'}))
+              style({width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap'}))
           ]
         )
       ]
@@ -36,6 +36,15 @@ export class ProjectLayoutComponent implements OnInit {
   public id: string;
   public dismissMsg: boolean = false;
   public extendChatBot: boolean = false;
+  public chatBotResponses = {
+    greetings: ['¿En qué te puedo ayudar?', '¿Necesitas ayuda en algo?', '¿Qué te gustaría hacer?'],
+    suggest: ['Sugiero utilizar la herramienta <a href="/#/project/discover/five-whys">Five whys</a> para llegar a la causa raíz del problema',
+      'En este momento podrías compartir el prototipo <a href="/#/project/build/low-fidelity">Low Fidelity Prototyping</a> con el equipo del proyecto',
+      'Estás a punto de concluir. Completa el <a href="/#/project/launch/marketing-mix">Marketing mix</a> para que empiecen a producir sin inconvenientes'
+    ]
+  };
+  public chatMessages = [];
+  public messageToSend: string = '';
 
   public constructor(public router: Router,
                      private route: ActivatedRoute) {
@@ -47,9 +56,13 @@ export class ProjectLayoutComponent implements OnInit {
   ngOnInit(): void {
     // this.id =  this.route.snapshot.paramMap.get('id');
     this.id = sessionStorage.getItem('projectId');
+    if (this.chatMessages.length === 0) {
+      this.chatMessages.push({user: 'CHATBOT', message: this.chatBotResponses.greetings[Math.floor(Math.random() * 10) % 3]});
+    }
     setTimeout(() => {
       this.dismissMsg = true;
-    }, 10000 );
+    }, 10000);
+
   }
 
   toggleMinimize(e) {
@@ -76,5 +89,13 @@ export class ProjectLayoutComponent implements OnInit {
     this.project = new ProjectModel();
     this.project.name = 'i4.0 Fast Response';
     this.project.completion = 60;
+  }
+
+  sendChatMessage() {
+    this.chatMessages.push({user: 'USER', message: this.messageToSend});
+    const index = this.messageToSend.toLocaleLowerCase().includes('causa') ? 0
+      : this.messageToSend.toLocaleLowerCase().includes('sketch') ? 1 : 2;
+    this.chatMessages.push({user: 'CHATBOT', message: this.chatBotResponses.suggest[index]});
+    this.messageToSend = '';
   }
 }

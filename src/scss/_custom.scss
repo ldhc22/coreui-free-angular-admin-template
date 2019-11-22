@@ -35,15 +35,37 @@
   position: fixed;
   bottom: 0;
   right: 10px;
+  width: 50vw;
+
+  @media (min-width: 576px) {
+    width: 40vw;
+  }
 
   .chat-logo {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50px;
     @media (min-width: 576px) {
-      width: 65px;
-      height: 65px;
+      width: 50px;
+      height: 50px;
     }
+  }
+
+  .chat-messages{
+    background: url("../assets/img/bg-chat.png");
+    overflow: auto;
+    height: 50vh;
+    @media (min-width: 576px) {
+      height: 30vh;
+    }
+
+    .bot-message{
+      max-width: 65%;
+    }
+    .user-message{
+      max-width: 65%;
+    }
+
   }
 }
 
