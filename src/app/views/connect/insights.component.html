@@ -2,8 +2,58 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
           <h4 class="card-title mb-0">Insights</h4>
+          <p>Con esta herramienta, podemos descubrir cuáles son esos aspectos de forma de pensar, sentir o actuar para transformarlos en oportunidades de nuevos productos, servicios y estrategias accionables.</p>
+        </div>
+        <div class="col-sm-6 mt-2 mb-3">
+          <h4>Plantilla</h4>
+        </div>
+        <div class="col-sm-6 mt-2 mb-3">
+          <select class="form-control">
+            <option>Versión 1 - 22/11/2019</option>
+            <option>Versión 2 - 27/11/2019</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <h4>
+            <strong>Lista de Insights</strong>
+          </h4>
+        </div>
+        <div class="form-group col-12">
+          <div class="input-group mb-2">
+            <input type="text" placeholder="Escribe algo..." class="form-control">
+            <button type="button" class="btn btn-info input-group-append"><i class="fa fa-plus"></i> </button>
+          </div>
+          <div class="input-group mb-2">
+            <input type="text" placeholder="Escribe algo..." class="form-control">
+            <button type="button" class="btn btn-info input-group-append"><i class="fa fa-minus"></i> </button>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" >Accionar</button>
+          </div>
+          <br class="dropdown-divider">
+          <div class="col-12">
+            <strong class="mb-2">
+              Idea 1
+            </strong>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" placeholder="Accionado" class="form-control">
+                <div class="input-group-append" dropdown>
+                  <button type="button" class="btn btn-primary dropdown-toggle" dropdownToggle><i class="fa fa-pencil"></i>
+                    <span class="caret"></span>
+                  </button>
+                  <div class="dropdown-menu" *dropdownMenu>
+                    <a class="dropdown-item" href="#">Revisar <i class="fa fa-search ml-2"></i> </a>
+                    <a class="dropdown-item" href="#">Aceptar <i class="fa fa-check ml-2"></i> </a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

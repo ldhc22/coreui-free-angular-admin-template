@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {ConnectRoutingModule} from '../connect/connect-routing.module';
-import {BsDropdownModule, ButtonsModule, ModalModule, ProgressbarModule} from 'ngx-bootstrap';
+import {BsDropdownModule, ButtonsModule, ModalModule, ProgressbarModule, TabsModule} from 'ngx-bootstrap';
 import {CommonModule} from '@angular/common';
 import {LaunchComponent} from './launch.component';
 import {MarketingMixComponent} from './marketing-mix.component';
@@ -16,6 +16,7 @@ import {LaunchRoutingModule} from './launch-module.module';
       ButtonsModule.forRoot(),
       ProgressbarModule.forRoot(),
       CommonModule,
+      TabsModule,
       ModalModule.forRoot(),
     ],
     declarations: [
