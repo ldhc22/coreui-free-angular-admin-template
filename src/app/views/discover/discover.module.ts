@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {BsDropdownModule, ButtonsModule, ModalModule, ProgressbarModule} from 'ngx-bootstrap';
+import {BsDropdownModule, ButtonsModule, ModalModule, ProgressbarModule, TabsModule} from 'ngx-bootstrap';
 import {CommonModule} from '@angular/common';
 import {DiscoverComponent} from './discover.component';
 import {DiscoverRoutingModule} from './discover-routing.module';
@@ -15,6 +15,7 @@ import {NgxDocViewerModule} from 'ngx-doc-viewer';
     NgxDocViewerModule,
     FormsModule,
     DiscoverRoutingModule,
+    TabsModule,
     BsDropdownModule,
     ButtonsModule.forRoot(),
     ProgressbarModule.forRoot(),

@@ -5,6 +5,18 @@ import {RestrictionsModel} from '../../model/restrictions.model';
 import {ModalDirective} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 import {routes} from '../../app.routing';
+import {ProjectService} from '../../services/project.service';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {InvestigationModel} from '../../model/discover/investigation.model';
+import {FiveWhysModel} from '../../model/discover/fiveWhys.model';
+import {QuestionLadderModel} from '../../model/discover/questionLadder.model';
+import {VoiceCustomerModel} from '../../model/discover/voiceCustomer.model';
+import {AffinityDiagramModel} from '../../model/connect/affinityDiagram.model';
+import {InsightsModel} from '../../model/connect/insights.model';
+import {ImprovementTriggerModel} from '../../model/create/improvementTrigger.model';
+import {MatrizMvpModel} from '../../model/create/matrizMvp.model';
+import {PrototypingModel} from '../../model/build/prototyping.model';
+import {MarketingMixModel} from '../../model/launch/marketingMix.model';
 
 @Component({
   templateUrl: 'projects.component.html'
@@ -13,8 +25,10 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('newProjectModal') public newProjectModal: ModalDirective;
   public projects: ProjectModel[] = [];
   public projectToAdd: ProjectModel = new ProjectModel();
+  private id: string;
 
-  constructor(public router: Router) {
+  constructor(public router: Router,
+              private projectService: ProjectService) {
 
   }
 
@@ -22,53 +36,35 @@ export class ProjectsComponent implements OnInit {
     this.initProjects();
     this.projectToAdd.teamMembers = [new TeamMemberModel()];
     this.projectToAdd.stakeholders = [new TeamMemberModel()];
+    this.projectToAdd.techInvestigation = [new VersionControlModel<InvestigationModel>()];
+    this.projectToAdd.fiveWhys = [new VersionControlModel<FiveWhysModel>()];
+    this.projectToAdd.questionLadder = [new VersionControlModel<QuestionLadderModel>()];
+    this.projectToAdd.voiceCustomer = [new VersionControlModel<VoiceCustomerModel>()];
+
+    this.projectToAdd.affinityDiagram = [new VersionControlModel<AffinityDiagramModel>()];
+    this.projectToAdd.insights = [new VersionControlModel<InsightsModel>()];
+
+    this.projectToAdd.ideas = [new VersionControlModel<string[]>()];
+    this.projectToAdd.improvementTriggers = [new VersionControlModel<ImprovementTriggerModel>()];
+    this.projectToAdd.matrizMvp = [new VersionControlModel<MatrizMvpModel>()];
+
+    this.projectToAdd.lowFidelity = [new VersionControlModel<PrototypingModel>()];
+    this.projectToAdd.midFidelity = [new VersionControlModel<PrototypingModel>()];
+    this.projectToAdd.highFidelity = [new VersionControlModel<PrototypingModel>()];
+
+    this.projectToAdd.marketingMix = {
+      product: [new VersionControlModel<MarketingMixModel>()],
+      place: [new VersionControlModel<MarketingMixModel>()],
+      price: [new VersionControlModel<MarketingMixModel>()],
+      physicalEnv: [new VersionControlModel<MarketingMixModel>()],
+      process: [new VersionControlModel<MarketingMixModel>()],
+      people: [new VersionControlModel<MarketingMixModel>()],
+      promotion: [new VersionControlModel<MarketingMixModel>()]
+    };
   }
 
   initProjects() {
-    const proj = new ProjectModel();
-    proj.id = '12345678';
-    proj.name = 'Sistema de enfriamiento sólido';
-    proj.description = 'Desarrollo de sistema de enfriamiento que utiliza una pieza sólida en lugar de fluidos';
-    proj.client = 'Big Company S.A de C.V.';
-    proj.objective = 'Obtener un sistema que reduzca el consumo de energía en un 20%';
-    proj.restrictions = new RestrictionsModel();
-    proj.restrictions.time = '60 semanas';
-    proj.restrictions.cost = '$1,000,000';
-    proj.restrictions.quality = '';
-    proj.completion = 60;
-    proj.stakeholders = [];
-    proj.startDate = new Date();
-    this.initStakeholders(proj.stakeholders);
-    proj.challenges = 'Viabilidad técnica del producto';
-    proj.teamMembers = [];
-    this.initTeamMembers(proj.teamMembers);
-    this.projects.push(proj);
-  }
-
-  initStakeholders(stakeholders: TeamMemberModel[]) {
-    const stake = new TeamMemberModel();
-    stake.name = 'Juan Lopez';
-    stake.email = 'j.lopez@bigcompany.com';
-    stake.role = 'stakeholder';
-    const stake2 = new TeamMemberModel();
-    stake2.name = 'Pedro Páramo';
-    stake2.email = 'p.paramo@bigcompany.com';
-    stake2.role = 'stakeholder';
-    stakeholders.push(stake);
-    stakeholders.push(stake2);
-  }
-
-  initTeamMembers(teamMembers: TeamMemberModel[]) {
-    const team = new TeamMemberModel();
-    team.name = 'Ismael García';
-    team.email = 'i.garcia@ourcompany.com';
-    team.role = 'Diseñador';
-    const team2 = new TeamMemberModel();
-    team2.name = 'Luis Hernández';
-    team2.email = 'l.hernandez@ourcompany.com';
-    team2.role = 'Ingeniero';
-    teamMembers.push(team);
-    teamMembers.push(team2);
+    this.projects.push(...this.projectService.getProjects());
   }
 
   addStakeholder() {
@@ -90,8 +86,9 @@ export class ProjectsComponent implements OnInit {
   addProject() {
     this.projectToAdd.completion = 0;
     this.projectToAdd.startDate = new Date();
-    this.projectToAdd.id = Math.random() + '';
-    this.projects.push(Object.assign({}, this.projectToAdd));
+    this.projectToAdd.id = Math.floor(Math.random() * 100000000) + '';
+    this.projectService.addProject(this.projectToAdd);
+    this.projects = this.projectService.getProjects();
     this.resetProject();
     this.newProjectModal.hide();
   }
@@ -100,6 +97,31 @@ export class ProjectsComponent implements OnInit {
     this.projectToAdd = new ProjectModel();
     this.projectToAdd.teamMembers = [new TeamMemberModel()];
     this.projectToAdd.stakeholders = [new TeamMemberModel()];
+    this.projectToAdd.techInvestigation = [new VersionControlModel<InvestigationModel>()];
+    this.projectToAdd.fiveWhys = [new VersionControlModel<FiveWhysModel>()];
+    this.projectToAdd.questionLadder = [new VersionControlModel<QuestionLadderModel>()];
+    this.projectToAdd.voiceCustomer = [new VersionControlModel<VoiceCustomerModel>()];
+
+    this.projectToAdd.affinityDiagram = [new VersionControlModel<AffinityDiagramModel>()];
+    this.projectToAdd.insights = [new VersionControlModel<InsightsModel>()];
+
+    this.projectToAdd.ideas = [new VersionControlModel<string[]>()];
+    this.projectToAdd.improvementTriggers = [new VersionControlModel<ImprovementTriggerModel>()];
+    this.projectToAdd.matrizMvp = [new VersionControlModel<MatrizMvpModel>()];
+
+    this.projectToAdd.lowFidelity = [new VersionControlModel<PrototypingModel>()];
+    this.projectToAdd.midFidelity = [new VersionControlModel<PrototypingModel>()];
+    this.projectToAdd.highFidelity = [new VersionControlModel<PrototypingModel>()];
+
+    this.projectToAdd.marketingMix = {
+      product: [new VersionControlModel<MarketingMixModel>()],
+      place: [new VersionControlModel<MarketingMixModel>()],
+      price: [new VersionControlModel<MarketingMixModel>()],
+      physicalEnv: [new VersionControlModel<MarketingMixModel>()],
+      process: [new VersionControlModel<MarketingMixModel>()],
+      people: [new VersionControlModel<MarketingMixModel>()],
+      promotion: [new VersionControlModel<MarketingMixModel>()]
+    };
   }
 
   goToProject(projectId) {

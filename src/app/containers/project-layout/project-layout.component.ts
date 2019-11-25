@@ -6,6 +6,7 @@ import {ProjectModel} from '../../model/project.model';
 import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,7 @@ export class ProjectLayoutComponent implements OnInit {
   public userName: string = 'Luis Daniel Hernández Carrera';
   public notifications: NotificationModel[] = [];
   public messages: NotificationModel[] = [];
-  public project: ProjectModel;
+  public project: ProjectModel = new ProjectModel();
   public id: string;
   public dismissMsg: boolean = false;
   public extendChatBot: boolean = false;
@@ -51,15 +52,17 @@ export class ProjectLayoutComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;
 
   public constructor(public router: Router,
-                     private route: ActivatedRoute) {
+                     private route: ActivatedRoute,
+                     private projectService: ProjectService) {
     this.initMessages();
     this.initNotifications();
-    this.getProject();
   }
 
   ngOnInit(): void {
     // this.id =  this.route.snapshot.paramMap.get('id');
     this.id = sessionStorage.getItem('projectId');
+    console.log('Project id %o', this.id);
+    this.getProject();
     if (this.chatMessages.length === 0) {
       this.chatMessages.push({user: 'CHATBOT', message: this.chatBotResponses.greetings[Math.floor(Math.random() * 10) % 3]});
     }
@@ -90,9 +93,8 @@ export class ProjectLayoutComponent implements OnInit {
   }
 
   getProject() {
-    this.project = new ProjectModel();
-    this.project.name = 'i4.0 Fast Response';
-    this.project.completion = 60;
+    this.project = this.projectService.getProject(this.id);
+    console.log('Get Project layout %o', this.project);
   }
 
   sendChatMessage() {
@@ -102,7 +104,9 @@ export class ProjectLayoutComponent implements OnInit {
         : this.messageToSend.toLocaleLowerCase().includes('aprobar') ? 2 : 3;
     this.chatMessages.push({user: 'CHATBOT', message: this.chatBotResponses.suggest[index]});
     this.messageToSend = '';
-    this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    setTimeout(() => {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    }, 0);
   }
 
   enterPressed(event) {

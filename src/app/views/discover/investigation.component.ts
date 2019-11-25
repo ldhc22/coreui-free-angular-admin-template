@@ -1,16 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {InvestigationModel} from '../../model/investigation.model';
+import {InvestigationModel} from '../../model/discover/investigation.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
 import {CommentModel} from '../../model/comment.model';
+import {ProjectService} from '../../services/project.service';
+import {VersionControlModel} from '../../model/versionControl.model';
 
 @Component({
   templateUrl: './investigation.component.html'
 })
 export class InvestigationComponent implements OnInit {
-  public elements: InvestigationModel[] = [];
-  public selectedElement: InvestigationModel;
+  public elements: VersionControlModel<InvestigationModel>[] = [];
+  public elementToAdd: InvestigationModel = new InvestigationModel();
+  public selectedElement: VersionControlModel<InvestigationModel>;
   public showComments: boolean = false;
   public commentToAdd: CommentModel = new CommentModel();
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
     this.initElements();
@@ -25,12 +31,12 @@ export class InvestigationComponent implements OnInit {
     team2.name = 'Luis Daniel H.';
     this.commentToAdd.date = new Date();
     this.commentToAdd.user = team2;
-    this.selectedElement.comments.push(Object.assign({}, this.commentToAdd));
+    this.selectedElement.element.comments.push(Object.assign({}, this.commentToAdd));
     this.commentToAdd = new CommentModel();
   }
 
   initElements() {
-    const team1 = new TeamMemberModel();
+    /*const team1 = new TeamMemberModel();
     team1.name = 'Marcelo T.';
     const team2 = new TeamMemberModel();
     team2.name = 'Luis Daniel H.';
@@ -76,7 +82,30 @@ export class InvestigationComponent implements OnInit {
     e3.comments.push(c2);
     this.elements.push(e1);
     this.elements.push(e2);
-    this.elements.push(e3);
-    this.selectedElement = this.elements[1];
+    this.elements.push(e3);*/
+    this.elements = this.projectService.getTechInvestigation(sessionStorage.getItem('projectId'));
+    console.log('Elements Length %o', this.elements.length);
+    if (this.elements.length > 0) {
+      this.selectedElement = this.elements[this.elements.length - 1];
+    } else {
+      this.selectedElement = null;
+    }
+
+  }
+
+  addInvestigation(): void {
+    const team2 = new TeamMemberModel();
+    team2.name = 'Luis Daniel H.';
+    this.elementToAdd.comments = [];
+    this.elementToAdd.date = new Date();
+    this.elementToAdd.user = team2;
+    const vc = new VersionControlModel<InvestigationModel>();
+    vc.element = this.elementToAdd;
+    vc.date = this.elementToAdd.date;
+    vc.version = 1;
+    this.elements.push(vc);
+    console.log('Element added %o', this.elements);
+    /*this.selectedElement = this.elements[this.elements.length];*/
+    this.elementToAdd = new InvestigationModel();
   }
 }

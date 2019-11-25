@@ -1,5 +1,5 @@
-import {TeamMemberModel} from './teamMember.model';
-import {CommentModel} from './comment.model';
+import {TeamMemberModel} from '../teamMember.model';
+import {CommentModel} from '../comment.model';
 
 export class InvestigationModel {
   title: string;
