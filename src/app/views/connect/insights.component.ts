@@ -1,17 +1,52 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommentModel} from '../../model/comment.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
+import {ProjectService} from '../../services/project.service';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {InsightsModel} from '../../model/connect/insights.model';
 
 @Component({
   templateUrl: './insights.component.html'
 })
-export class InsightsComponent {
+export class InsightsComponent implements OnInit{
   public comments: CommentModel[] = [];
   public commentToAdd: CommentModel = new CommentModel();
   public showComments: boolean = false;
+  public elements: VersionControlModel<InsightsModel>[];
+  public selectedElement: VersionControlModel<InsightsModel>;
+  public actionFlag: boolean = false;
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
     this.initComments();
+    this.initElements();
+  }
+
+  initElements() {
+    this.elements = this.projectService.getInsights(sessionStorage.getItem('projectId'));
+    if (this.elements.length === 0) {
+      const ins = new InsightsModel();
+      ins.insights = [];
+      ins.insights.push({text: '', action: ''});
+      const insWrapper = new VersionControlModel<InsightsModel>();
+      insWrapper.element = ins;
+      insWrapper.version = 1;
+      insWrapper.date = new Date();
+      this.elements.push(insWrapper);
+    } else {
+      this.actionFlag = true;
+    }
+    this.selectedElement = this.elements[0];
+  }
+
+  addInsight() {
+    this.selectedElement.element.insights.push({text: '', action: ''});
+  }
+
+  removeInsight(index) {
+    this.selectedElement.element.insights.splice(index, 1);
   }
 
   toggleComments() {

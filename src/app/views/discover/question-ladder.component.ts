@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CommentModel} from '../../model/comment.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {ProjectService} from '../../services/project.service';
+import {QuestionLadderModel} from '../../model/discover/questionLadder.model';
 
 @Component({
   templateUrl: './question-ladder.component.html'
@@ -10,9 +13,75 @@ export class QuestionLadderComponent implements OnInit {
   public comments: CommentModel[] = [];
   public commentToAdd: CommentModel = new CommentModel();
   public showComments: boolean = false;
+  public elements: VersionControlModel<QuestionLadderModel>[];
+  public selectedElement: VersionControlModel<QuestionLadderModel>;
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
     this.initComments();
+    this.initElements();
+  }
+  initElements() {
+    this.elements = this.projectService.getQuestionLadder(sessionStorage.getItem('projectId'));
+    if (this.elements.length === 0) {
+      const q = new QuestionLadderModel();
+      q.how = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      q.what = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      q.when = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      q.where = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      q.who = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      q.why = {
+        did: '',
+        will: '',
+        would: '',
+        can: '',
+        is: '',
+        might: ''
+      };
+      const qWrapper = new VersionControlModel<QuestionLadderModel>();
+      qWrapper.date = new Date();
+      qWrapper.element = q;
+      qWrapper.version = 1;
+      this.elements.push(qWrapper);
+    }
+    this.selectedElement = this.elements[0];
   }
 
   toggleComments() {

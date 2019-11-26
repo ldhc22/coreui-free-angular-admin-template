@@ -1,17 +1,43 @@
 import {Component, OnInit} from '@angular/core';
 import {CommentModel} from '../../model/comment.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {AffinityDiagramModel} from '../../model/connect/affinityDiagram.model';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   templateUrl: './affinity-diagram.component.html'
 })
-export class AffinityDiagramComponent implements OnInit{
+export class AffinityDiagramComponent implements OnInit {
   public comments: CommentModel[] = [];
   public commentToAdd: CommentModel = new CommentModel();
   public showComments: boolean = false;
+  public elements: VersionControlModel<AffinityDiagramModel>[];
+  public selectedElement: VersionControlModel<AffinityDiagramModel>;
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
     this.initComments();
+    this.initElements();
+  }
+
+  initElements() {
+    this.elements = this.projectService.getAffinityDiagram(sessionStorage.getItem('projectId'));
+    if (this.elements.length === 0) {
+      const aff: AffinityDiagramModel = new AffinityDiagramModel();
+      aff.group1 = {name: '', concepts: ['', '', '', '', '']};
+      aff.group2 = {name: '', concepts: ['', '', '', '', '']};
+      aff.group3 = {name: '', concepts: ['', '', '', '', '']};
+      aff.group4 = {name: '', concepts: ['', '', '', '', '']};
+      const affWrapper = new VersionControlModel<AffinityDiagramModel>();
+      affWrapper.element = aff;
+      affWrapper.date = new Date();
+      affWrapper.version = 1;
+      this.elements.push(affWrapper);
+    }
+    this.selectedElement = this.elements[0];
   }
 
   toggleComments() {

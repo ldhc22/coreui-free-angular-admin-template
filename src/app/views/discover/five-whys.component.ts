@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CommentModel} from '../../model/comment.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {FiveWhysModel} from '../../model/discover/fiveWhys.model';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   templateUrl: './five-whys.component.html'
@@ -15,9 +18,38 @@ export class FiveWhysComponent implements OnInit {
   public comments: CommentModel[] = [];
   public commentToAdd: CommentModel = new CommentModel();
   public showComments: boolean = false;
+  public elements: VersionControlModel<FiveWhysModel>[];
+  public selectedElement: VersionControlModel<FiveWhysModel>;
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
-    this.initComments();
+    /*this.initComments();*/
+    this.initElements();
+  }
+
+  initElements() {
+    this.elements = this.projectService.getFiveWhys(sessionStorage.getItem('projectId'));
+    if(this.elements.length === 0) {
+      const fiv = new FiveWhysModel();
+      fiv.problem = '';
+      fiv.rootCause = '';
+      fiv.solutions = '';
+      fiv.whys = [
+        {why: '', rootCause: true},
+        {why: '', rootCause: true},
+        {why: '', rootCause: true},
+        {why: '', rootCause: true},
+        {why: '', rootCause: true}
+      ];
+      const fivWrapper = new VersionControlModel<FiveWhysModel>();
+      fivWrapper.element = fiv;
+      fivWrapper.version = 1;
+      fivWrapper.date = new Date();
+      this.elements.push(fivWrapper);
+    }
+    this.selectedElement = this.elements[0];
   }
 
   toggleComments() {

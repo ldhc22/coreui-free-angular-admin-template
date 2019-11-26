@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CommentModel} from '../../model/comment.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
+import {VersionControlModel} from '../../model/versionControl.model';
+import {VoiceCustomerModel} from '../../model/discover/voiceCustomer.model';
+import {ProjectService} from '../../services/project.service';
 
 @Component({
   templateUrl: './voice-customer.component.html'
@@ -10,9 +13,31 @@ export class VoiceCustomerComponent implements OnInit {
   public comments: CommentModel[] = [];
   public commentToAdd: CommentModel = new CommentModel();
   public showComments: boolean = false;
+  public elements: VersionControlModel<VoiceCustomerModel>[];
+  public selectedElement: VersionControlModel<VoiceCustomerModel>;
+
+  constructor(private projectService: ProjectService) {
+  }
 
   ngOnInit(): void {
     this.initComments();
+    this.initElements();
+  }
+
+  initElements() {
+    this.elements = this.projectService.getVoiceCustomer(sessionStorage.getItem('projectId'));
+    if (this.elements.length === 0) {
+      const voc = new VoiceCustomerModel();
+      voc.comments = ['', '', '', '', '', ''];
+      voc.understanding = ['', '', '', '', '', ''];
+      voc.requirements = ['', '', '', '', '', ''];
+      const vocWrapper = new VersionControlModel<VoiceCustomerModel>();
+      vocWrapper.element = voc;
+      vocWrapper.version = 1;
+      vocWrapper.date = new Date();
+      this.elements.push(vocWrapper);
+    }
+    this.selectedElement = this.elements[0];
   }
 
   toggleComments() {
