@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {InvestigationModel} from '../../model/discover/investigation.model';
 import {TeamMemberModel} from '../../model/teamMember.model';
 import {CommentModel} from '../../model/comment.model';
 import {ProjectService} from '../../services/project.service';
 import {VersionControlModel} from '../../model/versionControl.model';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   templateUrl: './investigation.component.html'
@@ -14,6 +15,7 @@ export class InvestigationComponent implements OnInit {
   public selectedElement: VersionControlModel<InvestigationModel>;
   public showComments: boolean = false;
   public commentToAdd: CommentModel = new CommentModel();
+  @ViewChild('newInvestigationModal') public newInvestigationModal: ModalDirective;
 
   constructor(private projectService: ProjectService) {
   }
@@ -84,7 +86,6 @@ export class InvestigationComponent implements OnInit {
     this.elements.push(e2);
     this.elements.push(e3);*/
     this.elements = this.projectService.getTechInvestigation(sessionStorage.getItem('projectId'));
-    console.log('Elements Length %o', this.elements.length);
     if (this.elements.length > 0) {
       this.selectedElement = this.elements[this.elements.length - 1];
     } else {
@@ -104,8 +105,8 @@ export class InvestigationComponent implements OnInit {
     vc.date = this.elementToAdd.date;
     vc.version = 1;
     this.elements.push(vc);
-    console.log('Element added %o', this.elements);
-    /*this.selectedElement = this.elements[this.elements.length];*/
+    this.selectedElement = this.elements[this.elements.length - 1];
     this.elementToAdd = new InvestigationModel();
+    this.newInvestigationModal.hide();
   }
 }
