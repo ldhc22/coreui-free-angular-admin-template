@@ -265,8 +265,32 @@ export class ProjectService {
     p.insights.push(insWrapper);
 
     p.ideas = [];
+
     p.improvementTriggers = [];
     p.matrizMvp = [];
+    const matriz = new MatrizMvpModel();
+    matriz.first = [
+      'Nuevo mecanismo Palancas'
+    ];
+    matriz.second = [
+      'Reubicación de porta celula',
+      'Rediseño de case',
+      'Pantalla'
+    ];
+    matriz.third = ['Antena Bluetooth 5.0'];
+    matriz.fourth = [];
+    matriz.selectIdeas = [
+      'Prototipo físico',
+      'Sin funcionalidad electrónica',
+      'Sin funcionalidad de comunicación',
+      'Validar ergonomía'
+    ];
+    matriz.selectedPrototype = 'MID_FIDELITY';
+    const matrizWrapper = new VersionControlModel<MatrizMvpModel>();
+    matrizWrapper.element = matriz;
+    matrizWrapper.date = new Date();
+    matrizWrapper.version = 1;
+    p.matrizMvp.push(matrizWrapper);
 
     p.lowFidelity = [];
     p.midFidelity = [];

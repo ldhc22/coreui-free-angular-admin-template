@@ -3,4 +3,6 @@ export class MatrizMvpModel {
   second: string[];
   third: string[];
   fourth: string[];
+  selectIdeas: string[];
+  selectedPrototype: string;
 }
